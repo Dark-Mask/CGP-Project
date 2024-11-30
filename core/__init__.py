@@ -1,7 +1,7 @@
 #import all
-__all__ = ['game', 'events', 'settings']
+__all__ = ['game', 'actions', 'settings']
 
 #import submodule
 from . import game
-from . import events
+from . import actions
 from . import settings

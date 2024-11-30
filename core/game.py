@@ -1,7 +1,7 @@
 import pygame, sys
-from core import settings, events
-from ui import menu
-from components import player
+from core import settings, actions
+from ui import menu as mnu
+from components import player as pl
 from pygame.locals import *
 
 class Game:
@@ -14,8 +14,8 @@ class Game:
         self.screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HIGHT))
 
         #entity
-        self.hero = player.Player(self.screen.get_width() / 2, self.screen.get_height() / 2, 50, 50, 'red')
-        self.game_menu = menu.Menu()
+        self.player = pl.Player(self.screen.get_width() / 2, self.screen.get_height() / 2, 50, 50, 'red')
+        self.menu = mnu.Menu()
 
         self.isGameStart = False
         self.isRunning = True
@@ -27,21 +27,21 @@ class Game:
 
             #event handler
             py_events = pygame.event.get()
-            events.exit_event(py_events)
+            actions.close_game(py_events)
 
             if self.isGameStart:
                 #handle movement event
-                events.movement_event(self.hero)
+                actions.move_player(self.player)
 
                 #update character
-                self.hero.draw(self.screen)
+                self.player.draw(self.screen)
 
             else:
                 #selecting game menu options
-                events.select_menu(py_events, self.game_menu, self)
+                actions.select_menu(py_events, self.menu, self)
 
                 #update menu
-                self.game_menu.draw(self.screen)
+                self.menu.draw(self.screen)
 
 
             pygame.display.flip() #update screen

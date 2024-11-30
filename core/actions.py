@@ -1,7 +1,7 @@
 import pygame
 import sys
 
-def exit_event(events):
+def close_game(events):
     #handle exit event
     for event in events:
         if event.type == pygame.QUIT:
@@ -22,18 +22,18 @@ def select_menu(events, menu, game):
                 elif menu.get_selection() == 1:
                     game.isRunning = False
 
-def movement_event(entity):
+def move_player(player):
     #handle movement event
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_w]: #move up
-        entity.move(0, -5)
+        player.move(0, -5)
 
     if keys[pygame.K_s]: #move down
-        entity.move(0, 5) 
+        player.move(0, 5) 
 
     if keys[pygame.K_a]: #move left
-        entity.move(-5, 0) 
+        player.move(-5, 0) 
         
     if keys[pygame.K_d]: #move right
-        entity.move(5, 0) 
+        player.move(5, 0) 
