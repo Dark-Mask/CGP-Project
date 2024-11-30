@@ -1,24 +1,12 @@
 import pygame
 import sys
 
-def exit_event(events):
+def exit_event():
     #handle exit event
-    for event in events:
+    for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
-def selection_event(events, selection):
-    #handle selection event
-    for event in events:
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                selection.change_option()
-            elif event.key == pygame.K_DOWN:
-                selection.change_option()
-            elif event.key == pygame.K_RETURN:
-                return selection.select()
-    return False
 
 def movement_event(entity):
     #handle movement event
@@ -35,3 +23,12 @@ def movement_event(entity):
         
     if keys[pygame.K_d]: #move right
         entity.move(5, 0) 
+
+def selection_event(events, selection):
+    #handle selection event
+    for event in events:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                selection.change_option()
+            elif event.key == pygame.K_DOWN:
+                selection.change_option()

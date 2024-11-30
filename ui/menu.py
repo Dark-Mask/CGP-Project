@@ -18,9 +18,9 @@ class Menu:
         else:
             self.selected = 0
 
-    def select(self):
+    def get_selection(self):
         #start game
-        return self.selected == 0
+        return self.selected
 
     def draw(self, screen):
         #menu background
