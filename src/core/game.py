@@ -23,6 +23,7 @@ def start():
         events.exit_event()
         events.movement_event(hero)
 
+        #draw hero
         hero.draw(screen)
 
         #update screen
