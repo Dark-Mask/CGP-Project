@@ -21,7 +21,9 @@ def start():
 
         #event handler
         events.exit_event()
-        events.movement_event(hero)
+        events.selection_event()
+        # events.movement_event(hero)
+
 
         #draw hero
         hero.draw(screen)
