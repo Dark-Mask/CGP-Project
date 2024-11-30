@@ -1,5 +1,5 @@
 import pygame, sys
-from core import settings, actions
+from core import action, settings
 from ui import menu as mnu
 from components import player as pl
 from pygame.locals import *
@@ -27,18 +27,18 @@ class Game:
 
             #event handler
             py_events = pygame.event.get()
-            actions.close_game(py_events)
+            action.close_game(py_events)
 
             if self.isGameStart:
                 #handle movement event
-                actions.move_player(self.player)
+                action.move_player(self.player)
 
                 #update character
                 self.player.draw(self.screen)
 
             else:
                 #selecting game menu options
-                actions.select_menu(py_events, self.menu, self)
+                action.select_menu(py_events, self.menu, self)
 
                 #update menu
                 self.menu.draw(self.screen)
