@@ -18,6 +18,10 @@ class Menu:
         else:
             self.selected = 0
 
+    def select(self):
+        #start game
+        return self.selected == 0
+
     def draw(self, screen):
         #menu background
         cordX = (screen.get_width() - self.menu.get_width()) // 2

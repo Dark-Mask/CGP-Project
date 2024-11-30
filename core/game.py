@@ -22,12 +22,13 @@ def start():
         screen.fill(settings.BACKGROUND_COLOR)
 
         # event handler
-        events.exit_event()
+        pyevents = pygame.event.get()
+        events.exit_event(pyevents)
 
         if isGameStart:
             pass
         else:
-            events.selection_event(game_menu)
+            events.selection_event(pyevents, game_menu)
             game_menu.draw(screen)
 
 
