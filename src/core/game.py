@@ -1,5 +1,5 @@
 from core import settings, events
-import sys
+from components import player
 import pygame
 from pygame.locals import *
 
@@ -11,16 +11,22 @@ def start():
     pygame.display.set_caption(settings.GAME_TITLE)
     screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HIGHT))
 
+    #entity
+    hero = player.Player(screen.get_width() / 2, screen.get_height() / 2, 50, 50, 'red')
+
 
     #game loop
     while True:
         screen.fill(settings.BACKGROUND_COLOR)
 
         #event handler
-        events.handle_event()
+        events.exit_event()
+        events.movement_event(hero)
+
+        hero.draw(screen)
 
         #update screen
-        pygame.display.update()
+        pygame.display.flip()
 
         #frame rate
         pygame.time.Clock().tick(settings.FPS)
