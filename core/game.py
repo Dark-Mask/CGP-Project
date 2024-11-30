@@ -2,6 +2,7 @@ import pygame, sys
 from core import action, settings
 from ui import menu as mnu
 from components import player as pl
+from components import map_forest, map_snow, map_undead
 from pygame.locals import *
 
 class Game:
@@ -16,6 +17,11 @@ class Game:
         #entity
         self.player = pl.Player(self.screen.get_width() / 2, self.screen.get_height() / 2, 50, 50, 'red')
         self.menu = mnu.Menu()
+
+        #maps
+        self.forest = map_forest.ForestMap()
+        self.snow = map_snow.SnowMap()
+        self.undead = map_undead.UndeadMap()
 
         self.isGameStart = False
         self.isRunning = True
@@ -34,6 +40,7 @@ class Game:
                 action.move_player(self.player)
 
                 #update character
+                self.undead.draw(self.screen)
                 self.player.draw(self.screen)
 
             else:

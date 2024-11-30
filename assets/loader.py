@@ -11,5 +11,5 @@ def game_map(map):
         return pygame.image.load('assets/images/map/forest.png')
     elif map == 'snow':
         return pygame.image.load('assets/images/map/snow.png')
-    elif map == 'cemetery':
-        return pygame.image.load('assets/images/map/cemetery.png')
+    elif map == 'undead':
+        return pygame.image.load('assets/images/map/undead.png')
