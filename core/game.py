@@ -1,6 +1,7 @@
-from core import settings, events
-from components import player
 import pygame
+from core import settings, events
+from ui import menu
+from components import player
 from pygame.locals import *
 
 def start():
@@ -13,23 +14,22 @@ def start():
 
     #entity
     hero = player.Player(screen.get_width() / 2, screen.get_height() / 2, 50, 50, 'red')
+    game_menu = menu.Menu()
 
-
+    isGameStart = False
     #game loop
     while True:
         screen.fill(settings.BACKGROUND_COLOR)
 
-        #event handler
+        # event handler
         events.exit_event()
-        events.selection_event()
-        # events.movement_event(hero)
+
+        if isGameStart:
+            pass
+        else:
+            events.selection_event(game_menu)
+            game_menu.draw(screen)
 
 
-        #draw hero
-        hero.draw(screen)
-
-        #update screen
-        pygame.display.flip()
-
-        #frame rate
-        pygame.time.Clock().tick(settings.FPS)
+        pygame.display.flip() #update screen
+        pygame.time.Clock().tick(settings.FPS) #frame rate
