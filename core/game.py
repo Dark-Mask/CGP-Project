@@ -16,7 +16,7 @@ class Game:
         self.screen = pygame.display.set_mode((setting.SCREEN_WIDTH, setting.SCREEN_HIGHT))
 
         #components
-        self.player = pl.Player(self.screen.get_width() / 2, self.screen.get_height() / 2, 50, 50, 'red')
+        self.player = pl.Player(self.screen.get_width() / 2, 10, 50, 50, 'red')
         self.forest = map_forest.ForestMap()
         self.snow = map_snow.SnowMap()
         self.undead = map_undead.UndeadMap()
