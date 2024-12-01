@@ -10,9 +10,8 @@ class Player:
         self.color = color
 
     # update position
-    def move(self, dx, dy):
+    def move(self, dx=0, dy=0):
         self.position += pygame.Vector2(dx, dy)
-
 
     #draw player
     def draw(self, screen):

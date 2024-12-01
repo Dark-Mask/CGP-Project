@@ -1,6 +1,7 @@
 import pygame, sys
 from core import action, settings
 from ui import menu as mnu
+from utils import gravity
 from components import player as pl
 from components import map_forest, map_snow, map_undead
 from pygame.locals import *
@@ -14,14 +15,19 @@ class Game:
         pygame.display.set_caption(settings.GAME_TITLE)
         self.screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HIGHT))
 
-        #entity
+        #components
         self.player = pl.Player(self.screen.get_width() / 2, self.screen.get_height() / 2, 50, 50, 'red')
+
+        #ui
         self.menu = mnu.Menu()
 
         #maps
         self.forest = map_forest.ForestMap()
         self.snow = map_snow.SnowMap()
         self.undead = map_undead.UndeadMap()
+
+        #utils
+        self.gravity = gravity.ObjectGravity(0.5, 0.8)
 
         self.isGameStart = False
         self.isRunning = True
@@ -38,6 +44,7 @@ class Game:
             if self.isGameStart:
                 #handle movement event
                 action.move_player(self.player)
+                self.gravity.apply_gravity(self.player)
 
                 #update character
                 self.undead.draw(self.screen)
