@@ -26,8 +26,8 @@ def move_object(object):
     #handle movement event
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_w]: #move up
-        object.move(0, -5)
+    if keys[pygame.K_SPACE]: #move up
+        object.move(0, -50)
 
     if keys[pygame.K_s]: #move down
         object.move(0, 5) 

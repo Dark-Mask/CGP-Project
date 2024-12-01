@@ -2,12 +2,9 @@ import pygame
 
 class ObjectCollision:
 
-    def __init__(self, bounce_factor = 0):
+    def __init__(self, bounce_factor, retension):
         self.bounce_factor = bounce_factor
 
 
-    def apply_colider(self, object):
-        pass
-
-    def has_collision(self, object1, object2):
-        pass
+    def check_collision(self, object1, object2):
+        return object1.colliderect(object2)
