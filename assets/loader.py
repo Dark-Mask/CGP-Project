@@ -1,6 +1,6 @@
 import pygame
 
-def get_menu():
+def menu_ui():
     return pygame.image.load('assets/images/menu.png')
 
 def menu_background():
