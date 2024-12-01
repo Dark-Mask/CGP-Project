@@ -51,7 +51,7 @@ class Game:
                 #handle movement event
                 event.move_object(self.player)
 
-                if not self.collision.check_collision(self.player.collider_box(), self.draw_ground()):
+                if not self.collision.collision_top(self.player.collider_box(), self.draw_ground()):
                     self.gravity.apply_gravity(self.player)
 
                 #update character
