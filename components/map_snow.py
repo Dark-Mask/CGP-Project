@@ -5,7 +5,7 @@ class SnowMap:
 
     #constructor
     def __init__(self):
-        self.background = pygame.transform.scale(loader.game_map('snow'), (800, 600))
+        self.background = pygame.transform.scale(loader.background('snow'), (800, 600))
 
 
     def draw(self, screen):

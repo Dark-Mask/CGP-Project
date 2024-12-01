@@ -45,7 +45,7 @@ class Game:
                 self.gravity.apply_gravity(self.player)
 
                 #update character
-                self.undead.draw(self.screen)
+                self.snow.draw(self.screen)
                 self.player.draw(self.screen)
 
             else:
