@@ -22,18 +22,18 @@ def select_menu(events, menu, game):
                 elif menu.get_selection() == 1:
                     game.isRunning = False
 
-def move_player(player):
+def move_object(object):
     #handle movement event
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_w]: #move up
-        player.move(0, -5)
+        object.move(0, -5)
 
     if keys[pygame.K_s]: #move down
-        player.move(0, 5) 
+        object.move(0, 5) 
 
     if keys[pygame.K_a]: #move left
-        player.move(-5, 0) 
+        object.move(-5, 0) 
         
     if keys[pygame.K_d]: #move right
-        player.move(5, 0) 
+        object.move(5, 0) 

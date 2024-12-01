@@ -41,7 +41,7 @@ class Game:
 
             if self.isGameStart:
                 #handle movement event
-                event.move_player(self.player)
+                event.move_object(self.player)
                 self.gravity.apply_gravity(self.player)
 
                 #update character
