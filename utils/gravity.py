@@ -2,10 +2,9 @@ import pygame
 
 class ObjectGravity:
 
-    def __init__(self, gravity, bounce_factor):
+    def __init__(self, gravity):
         self.velocity = 0
         self.gravity = gravity
-        self.bounce_factor = bounce_factor
 
     def apply_gravity(self, object):
         #apply gravity
