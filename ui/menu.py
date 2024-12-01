@@ -5,8 +5,8 @@ class Menu:
 
     #constructor
     def __init__(self):
-        self.menu = pygame.transform.scale(loader.get_menu(), (450, 500))
-        self.menu_background = pygame.transform.scale(loader.menu_background(), (800, 600))
+        self.menu = pygame.transform.scale(loader.menu_ui(), (450, 500))
+        self.menu_background = pygame.transform.scale(loader.background('sky'), (800, 600))
         self.options = [('Start', (170, 320)), ('Quit', (180, 420))]
         self.font = pygame.font.Font(None, 70)
         self.color1= pygame.color.Color(255, 63, 141)

@@ -3,13 +3,12 @@ import pygame
 def menu_ui():
     return pygame.image.load('assets/images/menu.png')
 
-def menu_background():
-    return pygame.image.load('assets/images/background/cityskyline.png')
-
-def game_map(map):
-    if map == 'forest':
+def background(background):
+    if background == 'forest':
         return pygame.image.load('assets/images/background/forest.png')
-    elif map == 'snow':
+    elif background == 'snow':
         return pygame.image.load('assets/images/background/snow.png')
-    elif map == 'undead':
+    elif background == 'undead':
         return pygame.image.load('assets/images/background/undead.png')
+    elif background == 'sky':
+        return pygame.image.load('assets/images/background/cityskyline.png')
