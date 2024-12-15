@@ -1,5 +1,0 @@
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-FPS = 60
-BACKGROUND_COLOR = (0,0,0)
-GAME_TITLE = 'Jolly Jumpers Meme Adventures'
