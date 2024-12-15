@@ -17,8 +17,10 @@ class Player(pygame.sprite.Sprite):
         self.load_assets()
         
         self.animation_index = 0
-        self.animation_counter = 0
         self.animation_direction = 'right'
+        self.animation_cooldown = 50 #millis
+        self.last_animation_tick = pygame.time.get_ticks()
+        self.last_animation_play = self.player_idle_right[self.animation_index]
 
         self.image = self.player_idle_right[self.animation_index]
         self.rect = self.image.get_rect()
@@ -56,7 +58,6 @@ class Player(pygame.sprite.Sprite):
         #temporary store movement change before applying
         delta_x = 0
         delta_y = 0
-        animation_cooldown = 3
 
         current_animation = self.player_idle_right
         if self.animation_direction == 'left':
@@ -89,13 +90,19 @@ class Player(pygame.sprite.Sprite):
     
 
         #animation
-        self.animation_counter += 1
-        if self.animation_counter > animation_cooldown: #trigger animation on delay
+        current_animation_tick = pygame.time.get_ticks()
+        if current_animation_tick - self.last_animation_tick > self.animation_cooldown: #trigger animation on delay
             self.animation_index += 1
-            self.animation_counter = 0
+            self.last_animation_tick = current_animation_tick
+
             if self.animation_index >= len(current_animation): #prevent out of bound exception
                 self.animation_index = 0
-            self.image = current_animation[self.animation_index]  #animation list used
+
+            if self.last_animation_play != current_animation: #start on first animation sequence
+                self.animation_index = 0
+                self.last_animation_play = current_animation
+
+            self.image = current_animation[self.animation_index]  #animation sequence to use
 
         #gravity
         self.velocity += 1 #gravity fall
