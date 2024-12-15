@@ -121,6 +121,10 @@ class Player():
                     self.hasJumped = False
                     self.velocity = 0
 
+            #enemy collision
+            if pygame.sprite.spritecollide(self, world.enemy_group, False):
+                print('enemy hit')
+
         #update player position
         self.rect.x += delta_x
         self.rect.y += delta_y

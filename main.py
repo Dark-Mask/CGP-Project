@@ -37,7 +37,7 @@ class World():
                 elif cell == 2:
                     block = grass
                 elif cell == 3:
-                    enemy = en.Enemy(col * tile_size, row * tile_size, tile_size, tile_size)
+                    enemy = en.Enemy(col * tile_size, row * tile_size + 15, tile_size - 15, tile_size - 15)
                     self.enemy_group.add(enemy)
 
                 if block:
