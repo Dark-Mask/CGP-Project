@@ -1,8 +1,8 @@
 import pygame
 
-class Player():
+class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
-
+        super().__init__()
         self.width = width
         self.height = height
 
@@ -52,7 +52,7 @@ class Player():
                 self.player_run_left.append(pygame.transform.flip(img, True, False))
 
 
-    def update(self, screen, world):
+    def update(self, world):
         #temporary store movement change before applying
         delta_x = 0
         delta_y = 0
@@ -128,5 +128,3 @@ class Player():
         #update player position
         self.rect.x += delta_x
         self.rect.y += delta_y
-        screen.blit(self.image, self.rect)
-        # pygame.draw.rect( screen, (255, 0, 0), self.rect, 2)

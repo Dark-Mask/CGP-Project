@@ -17,6 +17,14 @@ pygame.display.set_caption('Jolly Jumpers')
 bg_img = pygame.image.load('assets/images/background/cityskyline.png')
 
       
+#grid - test mode
+def draw_grid(self):
+    for line in range(int(screen_height/tile_size)):
+        pygame.draw.line(screen, (255,255,255), (0, line * tile_size), (screen_width, line * tile_size))
+
+    for line in range(int(screen_width/tile_size)):
+        pygame.draw.line(screen, (255,255,255), (line * tile_size, 0), (line * tile_size, screen_height))
+
 class World():
     def __init__(self, data, background):
         self.tile_list = []
@@ -46,14 +54,6 @@ class World():
                     img_rect.x =  col * tile_size
                     img_rect.y =  row * tile_size
                     self.tile_list.append((img, img_rect))
-    
-    #grid - test mode
-    def draw_grid(self):
-        for line in range(int(screen_height/tile_size)):
-            pygame.draw.line(screen, (255,255,255), (0, line * tile_size), (screen_width, line * tile_size))
-
-        for line in range(int(screen_width/tile_size)):
-            pygame.draw.line(screen, (255,255,255), (line * tile_size, 0), (line * tile_size, screen_height))
 
     def draw(self):
         screen.blit(bg_img, (0,0))
@@ -61,7 +61,6 @@ class World():
         for tile in self.tile_list:
             obj, rect = tile
             screen.blit(obj, rect)
-            # pygame.draw.rect(screen, (0, 0, 255), rect, 2)
 
     def update(self):
         self.enemy_group.update()
@@ -92,6 +91,10 @@ world_data = [
 
 world = World(world_data, bg_img)
 player = pl.Player(100, screen_height - 130, 50, 80)
+all_sprites = pygame.sprite.Group()
+
+all_sprites.add(player)
+
 
 run = True
 while run:
@@ -101,11 +104,11 @@ while run:
             run = False
 
     #draw assets
-    world.draw()
     world.update()
-    player.update(screen, world)
+    player.update(world)
 
-    world.draw_grid()
+    world.draw()
+    all_sprites.draw(screen)
     pygame.display.update()
     clock.tick(fps)
     
