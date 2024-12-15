@@ -13,9 +13,6 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Jolly Jumpers')
 
-#load resource
-bg_img = pygame.image.load('assets/images/background/cityskyline.png')
-
       
 #grid - test mode
 def draw_grid(self):
@@ -26,12 +23,12 @@ def draw_grid(self):
         pygame.draw.line(screen, (255,255,255), (line * tile_size, 0), (line * tile_size, screen_height))
 
 class World():
-    def __init__(self, data, background):
+    def __init__(self, data):
         self.tile_list = []
-        self.background = background
         self.enemy_group = pygame.sprite.Group()
 
-        #load resources
+        #load world assets
+        self.background = pygame.image.load('assets/images/background/cityskyline.png')
         dirt = pygame.image.load('assets/images/objects/dirt.png')
         grass = pygame.image.load('assets/images/objects/grass.png')
 
@@ -56,7 +53,7 @@ class World():
                     self.tile_list.append((img, img_rect))
 
     def draw(self):
-        screen.blit(bg_img, (0,0))
+        screen.blit(self.background, (0,0))
         self.enemy_group.draw(screen)
         for tile in self.tile_list:
             obj, rect = tile
@@ -89,7 +86,7 @@ world_data = [
 ]
 
 
-world = World(world_data, bg_img)
+world = World(world_data)
 player = pl.Player(100, screen_height - 130, 50, 80)
 all_sprites = pygame.sprite.Group()
 
