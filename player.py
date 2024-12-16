@@ -26,6 +26,7 @@ class Player(pygame.sprite.Sprite):
 
         self.image = self.player_idle_right[self.animation_index]
         self.rect = self.image.get_rect()
+        self.rect.width -= 10
         self.rect.x = self.x
         self.rect.y = self.y
         self.velocity = 0
