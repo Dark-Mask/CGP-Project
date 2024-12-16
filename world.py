@@ -40,6 +40,7 @@ class World():
         self.bullet_group.draw(screen)
 
     def update(self):
+        print(self.bullet_group)
         self.bullet_group.update()
         self.enemy_group.update()
 
