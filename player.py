@@ -110,28 +110,19 @@ class Player(pygame.sprite.Sprite):
             self.velocity = 10
         delta_y += self.velocity
         
-        #check collision
-        for tile in world.tile_list: #get the world tile data
-            obj, tile_rect = tile
-            #collision on x-direction
-            if tile_rect.colliderect(self.rect.x + delta_x, self.rect.y, self.width, self.height):
-                delta_x = 0 #no movement if collision
+        #world collision
+        self.rect.x += delta_x #x-direction collision
+        if pygame.sprite.spritecollide(self, world.block_group, False):
+            self.rect.x -= delta_x
+        
+        self.rect.y += delta_y #y-direction collision
+        if pygame.sprite.spritecollide(self, world.block_group, False):
+            self.rect.y -= delta_y
+            self.velocity = 0
 
-            #collision on y-direction
-            if tile_rect.colliderect(self.rect.x, self.rect.y + delta_y, self.width, self.height):
-                #negative velocity going up
-                if self.velocity < 0: #head collision (jumping)
-                    delta_y = tile_rect.bottom - self.rect.top
-                    self.velocity = 0
-                elif self.velocity >= 0: #bottom collision (grounded)
-                    delta_y = tile_rect.top - self.rect.bottom
-                    self.hasJumped = False
-                    self.velocity = 0
+            if self.velocity >= 0: #bottom collision (grounded)
+                self.hasJumped = False
 
-            #enemy collision
-            if pygame.sprite.spritecollide(self, world.enemy_group, False):
-                print('enemy hit')
-
-        #update player position
-        self.rect.x += delta_x
-        self.rect.y += delta_y
+        #enemy collision
+        if pygame.sprite.spritecollide(self, world.enemy_group, False):
+            print('enemy hit')

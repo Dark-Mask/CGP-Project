@@ -1,6 +1,7 @@
 import pygame
 import player as pl
 import enemy as en
+import block as blk
 from pygame.locals import *
 
 pygame.init()
@@ -26,6 +27,7 @@ class World():
     def __init__(self, data):
         self.tile_list = []
         self.enemy_group = pygame.sprite.Group()
+        self.block_group = pygame.sprite.Group()
 
         #load world assets
         self.background = pygame.image.load('assets/images/background/cityskyline.png')
@@ -47,17 +49,13 @@ class World():
 
                 if block:
                     img = pygame.transform.scale(block, (tile_size, tile_size))
-                    img_rect = img.get_rect()
-                    img_rect.x =  col * tile_size
-                    img_rect.y =  row * tile_size
-                    self.tile_list.append((img, img_rect))
+                    block_tile = blk.Block(col * tile_size, row * tile_size, img)
+                    self.block_group.add(block_tile)
 
     def draw(self):
         screen.blit(self.background, (0,0))
         self.enemy_group.draw(screen)
-        for tile in self.tile_list:
-            obj, rect = tile
-            screen.blit(obj, rect)
+        self.block_group.draw(screen)
 
     def update(self):
         self.enemy_group.update()
@@ -79,8 +77,8 @@ world_data = [
     [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
     [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
