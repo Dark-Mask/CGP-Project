@@ -113,11 +113,11 @@ class Player(pygame.sprite.Sprite):
         #world collision
         self.rect.x += delta_x #x-direction collision
         if pygame.sprite.spritecollide(self, world.block_group, False):
-            self.rect.x -= delta_x
+            self.rect.x -= delta_x #don't apply movement on wall collision
         
         self.rect.y += delta_y #y-direction collision
         if pygame.sprite.spritecollide(self, world.block_group, False):
-            self.rect.y -= delta_y
+            self.rect.y -= delta_y #don't apply movement on ground collision
             self.velocity = 0
 
             if self.velocity >= 0: #bottom collision (grounded)

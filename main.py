@@ -25,7 +25,6 @@ def draw_grid(self):
 
 class World():
     def __init__(self, data):
-        self.tile_list = []
         self.enemy_group = pygame.sprite.Group()
         self.block_group = pygame.sprite.Group()
 
@@ -52,7 +51,7 @@ class World():
                     block_tile = blk.Block(col * tile_size, row * tile_size, img)
                     self.block_group.add(block_tile)
 
-    def draw(self):
+    def draw(self, screen):
         screen.blit(self.background, (0,0))
         self.enemy_group.draw(screen)
         self.block_group.draw(screen)
@@ -102,7 +101,7 @@ while run:
     world.update()
     player.update(world)
 
-    world.draw()
+    world.draw(screen)
     all_sprites.draw(screen)
     pygame.display.update()
     clock.tick(fps)
