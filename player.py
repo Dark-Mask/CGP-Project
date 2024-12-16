@@ -128,13 +128,3 @@ class Player(pygame.sprite.Sprite):
 
             self.rect.y -= delta_y #don't apply movement on ground collision     
             self.velocity = 0    
-
-        #enemy collision
-        if pygame.sprite.spritecollide(self, world.enemy_group, False):
-            print('enemy hit')
-
-        
-        #bullet hit
-        if pygame.sprite.spritecollide(self, world.bullet_group, False):
-            # print('bullet hit')
-            pass
