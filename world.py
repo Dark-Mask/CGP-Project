@@ -43,6 +43,7 @@ class World():
         self.bullet_group.update()
         self.enemy_group.update()
 
+
 #Block Class
 class Block(pygame.sprite.Sprite):
     def __init__(self, x, y, image):
@@ -71,6 +72,7 @@ class Enemy(pygame.sprite.Sprite):
         if abs(self.move_counter) > 40:
             self.move_direction *= -1
             self.move_counter *= -1
+
 
 #Boss Class
 class Boss(pygame.sprite.Sprite):
@@ -109,6 +111,7 @@ class Boss(pygame.sprite.Sprite):
             self.move_counter *= -1
         self.shoot()
 
+
 # Bullet Class
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y, speed_x=0, speed_y=-5):
@@ -125,5 +128,5 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.x += self.speed_x
         self.rect.y += self.speed_y
         # Remove the bullet if it moves off-screen
-        if self.rect.bottom < 0 or self.rect.top > self.s_height or self.rect.right < 0 or self.rect.left > self.s_height:
+        if self.rect.bottom < 0 or self.rect.top > self.s_height or self.rect.right < 0 or self.rect.left > self.s_width:
             self.kill()
