@@ -1,7 +1,6 @@
 import pygame
 import player as pl
-import enemy as en
-import block as blk
+import world as wld
 from pygame.locals import *
 
 pygame.init()
@@ -22,43 +21,6 @@ def draw_grid(self):
 
     for line in range(int(screen_width/tile_size)):
         pygame.draw.line(screen, (255,255,255), (line * tile_size, 0), (line * tile_size, screen_height))
-
-class World():
-    def __init__(self, data):
-        self.enemy_group = pygame.sprite.Group()
-        self.block_group = pygame.sprite.Group()
-
-        #load world assets
-        self.background = pygame.image.load('assets/images/background/cityskyline.png')
-        dirt = pygame.image.load('assets/images/objects/dirt.png')
-        grass = pygame.image.load('assets/images/objects/grass.png')
-
-        for row in range(len(data)):
-            for col in range(len(data[row])):
-                cell = data[row][col]
-                block = None
-
-                if cell == 1:
-                    block = dirt
-                elif cell == 2:
-                    block = grass
-                elif cell == 3:
-                    enemy = en.Enemy(col * tile_size, row * tile_size + 15, tile_size - 15, tile_size - 15)
-                    self.enemy_group.add(enemy)
-
-                if block:
-                    img = pygame.transform.scale(block, (tile_size, tile_size))
-                    block_tile = blk.Block(col * tile_size, row * tile_size, img)
-                    self.block_group.add(block_tile)
-
-    def draw(self, screen):
-        screen.blit(self.background, (0,0))
-        self.enemy_group.draw(screen)
-        self.block_group.draw(screen)
-
-    def update(self):
-        self.enemy_group.update()
-
 
 #map obstacles
 world_data = [
@@ -83,10 +45,9 @@ world_data = [
 ]
 
 
-world = World(world_data)
+world = wld.World(world_data, tile_size)
 player = pl.Player(100, screen_height - 130, 50, 80)
 all_sprites = pygame.sprite.Group()
-
 all_sprites.add(player)
 
 
