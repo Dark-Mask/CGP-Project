@@ -1,11 +1,12 @@
 import pygame
 from pygame.locals import *
-import minion, blocky, boss
+import minion, tile, boss
 
 #World Class
 class World():
     def __init__(self, data, tile_size):
         self.enemy_group = pygame.sprite.Group()
+        self.item_group = pygame.sprite.Group()
         self.block_group = pygame.sprite.Group()
         self.bullet_group = pygame.sprite.Group()
 
@@ -24,7 +25,7 @@ class World():
                 elif cell == 2:
                     block = grass
                 elif cell == 3:
-                    enemy_minion = minion.Enemy(col * tile_size, row * tile_size + 15, tile_size - 15, tile_size - 15)
+                    enemy_minion = minion.Minion(col * tile_size, row * tile_size + 15, tile_size - 15, tile_size - 15)
                     self.enemy_group.add(enemy_minion)
                 elif cell == 4:
                     enemy_boss = boss.Boss(col * tile_size, row * tile_size, self.bullet_group)
@@ -32,7 +33,7 @@ class World():
 
                 if block:
                     img = pygame.transform.scale(block, (tile_size, tile_size))
-                    block_tile = blocky.Block(col * tile_size, row * tile_size, img)
+                    block_tile = tile.Block(col * tile_size, row * tile_size, img)
                     self.block_group.add(block_tile)
 
     def draw(self, screen):
@@ -40,6 +41,7 @@ class World():
         self.enemy_group.draw(screen)
         self.block_group.draw(screen)
         self.bullet_group.draw(screen)
+
 
     def update(self):
         self.bullet_group.update()
