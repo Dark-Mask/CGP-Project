@@ -5,6 +5,8 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.width = width
         self.height = height
+        self.x = x
+        self.y = y
 
         #animation
         self.player_idle_right = []
@@ -24,8 +26,8 @@ class Player(pygame.sprite.Sprite):
 
         self.image = self.player_idle_right[self.animation_index]
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.x = self.x
+        self.rect.y = self.y
         self.velocity = 0
         self.hasJumped = False
 
@@ -53,6 +55,8 @@ class Player(pygame.sprite.Sprite):
                 self.player_run_right.append(img)
                 self.player_run_left.append(pygame.transform.flip(img, True, False))
 
+    def player_border(self, screen):
+        pygame.draw.rect(screen, (255,0,0), self.rect, 2)
 
     def update(self, world):
         #temporary store movement change before applying
@@ -76,13 +80,13 @@ class Player(pygame.sprite.Sprite):
             self.velocity = -15 #jump power
             self.hasJumped = True 
         
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             delta_x -= 4
             self.animation_direction = 'left'
             if not self.hasJumped:
                 current_animation = self.player_run_left
 
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             delta_x += 4
             self.animation_direction = 'right'
             if not self.hasJumped:
@@ -117,12 +121,19 @@ class Player(pygame.sprite.Sprite):
         
         self.rect.y += delta_y #y-direction collision
         if pygame.sprite.spritecollide(self, world.block_group, False):
-            self.rect.y -= delta_y #don't apply movement on ground collision
-            self.velocity = 0
-
+ 
             if self.velocity >= 0: #bottom collision (grounded)
                 self.hasJumped = False
+
+            self.rect.y -= delta_y #don't apply movement on ground collision     
+            self.velocity = 0    
 
         #enemy collision
         if pygame.sprite.spritecollide(self, world.enemy_group, False):
             print('enemy hit')
+
+        
+        #bullet hit
+        if pygame.sprite.spritecollide(self, world.bullet_group, False):
+            # print('bullet hit')
+            pass
