@@ -12,7 +12,7 @@ class Boss(pygame.sprite.Sprite):
         self.rect.center = (x, y)
         self.move_direction = 1
         self.move_counter = 0
-        self.shoot_cooldown = 800  # Time between shots in milliseconds
+        self.shoot_cooldown = 1000  # Time between shots in milliseconds
         self.last_shot = pygame.time.get_ticks()
 
     def shoot(self):
