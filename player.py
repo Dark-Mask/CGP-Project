@@ -26,7 +26,7 @@ class Player(pygame.sprite.Sprite):
 
         self.image = self.player_idle_right[self.animation_index]
         self.rect = self.image.get_rect()
-        self.rect.width -= 10
+        self.rect.width -= 18
         self.rect.x = self.x
         self.rect.y = self.y
         self.velocity = 0
@@ -60,7 +60,10 @@ class Player(pygame.sprite.Sprite):
         pygame.draw.rect(screen, (255,0,0), self.rect, 2)
 
     def draw(self, screen):
-        screen.blit(self.image, self.rect)
+        #offset player to adjust small collision box
+        img_rect_x = self.rect.x - 13
+        img_rect_y = self.rect.y
+        screen.blit(self.image, (img_rect_x, img_rect_y))
 
 
     def update(self, world):
