@@ -39,6 +39,7 @@ class Game():
     def start(self, fps=60):
         screen = pygame.display.set_mode((self.width, self.height))
         clock = pygame.time.Clock()
+        result = ''
 
         run = True
         while run:
@@ -67,9 +68,16 @@ class Game():
             self.player.draw(screen)
             self.stats.draw(screen)
 
+            if self.stats.is_gameover():
+                result = 'gameover'
+                run = False
+            elif self.stats.is_winner():
+                result = 'win'
+                run = False
 
             pygame.display.update()
             clock.tick(fps)
 
         #close window
-        pygame.display.quit()            
+        pygame.display.quit()
+        return result

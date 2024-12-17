@@ -33,6 +33,14 @@ class GameStat:
         self.last_tick = pygame.time.get_ticks()
 
 
+    def is_gameover(self):
+        return self.health == 0
+
+
+    def is_winner(self):
+        return self.collected == self.total_pickup
+
+
     def damage(self, damage):
         d_health = self.health - damage
 
