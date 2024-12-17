@@ -23,8 +23,8 @@ class Boss(pygame.sprite.Sprite):
             # Fire multiple bullets in different directions
             directions = [
                 (0, 5),  # Straight up
-                (3, 4),  # Slightly left
-                (-3, 4),   # Slightly right
+                (3, 4),  # Slightly right
+                (-3, 4)   # Slightly left
             ]
             for dx, dy in directions:
                 bullet = blt.Bullet(self.rect.centerx, self.rect.centery, dx, dy)
