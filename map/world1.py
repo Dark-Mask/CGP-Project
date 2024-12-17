@@ -2,19 +2,11 @@ import pygame
 import components.minion as minion
 import components.tile as tile
 import components.boss as boss
-from pygame.locals import *
+import map.world as world
 
-#World Class
-class World():
-    def __init__(self, data):
-        self.width = 1200
-        self.height = 700
-        self.tile_size = 40
-
-        self.enemy_group = pygame.sprite.Group()
-        self.collect_group = pygame.sprite.Group()
-        self.block_group = pygame.sprite.Group()
-        self.bullet_group = pygame.sprite.Group()
+class World1(world.World):
+    def __init__(self, map_data):
+        super().__init__()
 
         #load world assets
         self.background = pygame.image.load('assets/images/background/cityskyline.png')
@@ -22,10 +14,10 @@ class World():
         dirt = pygame.image.load('assets/images/objects/dirt.png')
         grass = pygame.image.load('assets/images/objects/grass.png')
 
-        for row in range(len(data)):
-            for col in range(len(data[row])):
+        for row in range(len(map_data)):
+            for col in range(len(map_data[row])):
                 #word map
-                cell = data[row][col]
+                cell = map_data[row][col]
                 block = None
                 item = None
                 temp_row = row
@@ -69,29 +61,3 @@ class World():
                     img = pygame.transform.scale(item, (self.tile_size-15, self.tile_size-15))
                     collect_item = tile.Block(temp_col * self.tile_size, temp_row * self.tile_size+15, img)
                     self.collect_group.add(collect_item)
-
-
-    def draw_grid(self, screen):
-        for line in range(int(self.height/self.tile_size)):
-            pygame.draw.line(screen, (255,255,255), (0, line * self.tile_size), (self.width, line * self.tile_size))
-
-        for line in range(int(self.width/self.tile_size)):
-            pygame.draw.line(screen, (255,255,255), (line * self.tile_size, 0), (line * self.tile_size, self.height))
-
-
-    def draw(self, screen):
-        screen.blit(self.background, (0,0))
-        self.collect_group.draw(screen)
-        self.enemy_group.draw(screen)
-        self.block_group.draw(screen)
-        self.bullet_group.draw(screen)
-
-
-    def update(self):
-        self.bullet_group.update()
-        self.enemy_group.update()
-
-
-
-
-

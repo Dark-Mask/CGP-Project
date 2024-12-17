@@ -61,6 +61,7 @@ class Menu:
         screen = pygame.display.set_mode((self.width, self.height))
         clock = pygame.time.Clock()
 
+        has_selected = False
         run = True
         while run:
             for event in pygame.event.get():
@@ -72,6 +73,7 @@ class Menu:
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_RETURN]:
+                has_selected = True
                 run = False
                 
 
@@ -80,5 +82,8 @@ class Menu:
         
         #close window
         pygame.display.quit()
-        return self.get_selection()
+
+        if has_selected:
+            return self.get_selection()
+        return None
 

@@ -7,7 +7,7 @@ pygame.display.set_caption('Jolly Jumpers')
 
 main_menu = menu.Menu()
 if main_menu.start() == 'start':
-    game_ui = game.Game()
-    game_ui.start()
+    play_game = game.Game()
+    print(play_game.start())
 
 pygame.quit()
