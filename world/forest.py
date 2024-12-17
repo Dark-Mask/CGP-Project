@@ -1,7 +1,7 @@
 import pygame
 import world.world as world
 
-class World1(world.World):
+class Forest(world.World):
     def __init__(self, map_data):
         #load world assets
         background = pygame.image.load('assets/images/background/cityskyline.png')
