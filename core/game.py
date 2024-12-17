@@ -1,6 +1,8 @@
 import pygame
 import components.player as player
-import world.cementery as world
+import world.cementery as cementery
+import world.forest as forest
+import world.snow as snow
 import core.status as status
 from pygame.locals import *
 
@@ -31,7 +33,7 @@ class Game():
             [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         ]
 
-        self.game_world = world.Cementery(world_data)
+        self.game_world = cementery.Cementery(world_data)
         self.game_status = status.GameStat(len(self.game_world.collect_group))
         self.game_player = player.Player(100, self.game_world.height - 130, 50, 80)
 
