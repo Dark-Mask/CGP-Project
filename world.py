@@ -10,12 +10,13 @@ class World():
         self.tile_size = 40
 
         self.enemy_group = pygame.sprite.Group()
-        self.item_group = pygame.sprite.Group()
+        self.collect_group = pygame.sprite.Group()
         self.block_group = pygame.sprite.Group()
         self.bullet_group = pygame.sprite.Group()
 
         #load world assets
         self.background = pygame.image.load('assets/images/background/cityskyline.png')
+        mushroom = pygame.image.load('assets/images/objects/mushroom.png')
         dirt = pygame.image.load('assets/images/objects/dirt.png')
         grass = pygame.image.load('assets/images/objects/grass.png')
 
@@ -24,6 +25,7 @@ class World():
                 #word map
                 cell = data[row][col]
                 block = None
+                item = None
                 temp_row = row
                 temp_col = col
                 
@@ -37,6 +39,8 @@ class World():
                 elif cell == 4:
                     enemy_boss = boss.Boss(temp_col * self.tile_size, temp_row * self.tile_size, self.bullet_group)
                     self.enemy_group.add(enemy_boss)
+                elif cell == 5:
+                    item = mushroom
                 elif cell == -1:
                     #shify block left
                     block = dirt
@@ -59,6 +63,11 @@ class World():
                     block_tile = tile.Block(temp_col * self.tile_size, temp_row * self.tile_size, img)
                     self.block_group.add(block_tile)
 
+                if item:
+                    img = pygame.transform.scale(item, (self.tile_size-15, self.tile_size-15))
+                    collect_item = tile.Block(temp_col * self.tile_size, temp_row * self.tile_size+15, img)
+                    self.collect_group.add(collect_item)
+
 
     def draw_grid(self, screen):
         for line in range(int(self.height/self.tile_size)):
@@ -70,6 +79,7 @@ class World():
 
     def draw(self, screen):
         screen.blit(self.background, (0,0))
+        self.collect_group.draw(screen)
         self.enemy_group.draw(screen)
         self.block_group.draw(screen)
         self.bullet_group.draw(screen)

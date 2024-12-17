@@ -1,9 +1,10 @@
 import pygame
 
 class GameStat:
-    def __init__(self):
+    def __init__(self, collect_count):
         self.health = 240
-        self.points = 0
+        self.total_pickup = collect_count
+        self.collected = 0
         self.time = 0
         self.shield = False
 
@@ -19,15 +20,16 @@ class GameStat:
         self.timer_rect.x = 500
         self.timer_rect.y = 20
 
-        self.point_img = pygame.image.load('assets/images/stats/point.png')
-        self.point_img = pygame.transform.scale(self.point_img, (200, 80))
-        self.point_rect = self.point_img.get_rect()
-        self.point_rect.x = 800
-        self.point_rect.y = 20
+        self.collect_img = pygame.image.load('assets/images/stats/collect.png')
+        self.collect_img = pygame.transform.scale(self.collect_img, (200, 80))
+        self.collect_rect = self.collect_img.get_rect()
+        self.collect_rect.x = 800
+        self.collect_rect.y = 20
 
         self.font = pygame.font.Font(None, 50)
         self.health_bar = pygame.Rect(self.health_rect.x+85, self.health_rect.y+20, self.health, 40)
         self.timer_display = (self.timer_rect.x+82, self.timer_rect.y+23)
+        self.collect_display = (self.collect_rect.x+85, self.collect_rect.y+23)
         self.last_tick = pygame.time.get_ticks()
 
 
@@ -42,18 +44,20 @@ class GameStat:
                 self.health = d_health
             self.health_bar.width = self.health
 
-    def point(self, point):
-        self.point += point
+    def item_collected(self):
+        if self.collected < self.total_pickup:
+            self.collected += 1
 
     def draw(self, screen):
         screen.blit(self.health_img, self.health_rect)
         screen.blit(self.timer_img, self.timer_rect)
-        screen.blit(self.point_img, self.point_rect)
+        screen.blit(self.collect_img, self.collect_rect)
 
         #format time
         minutes = self.time // 60
         seconds = self.time % 60
         screen.blit(self.font.render(f'{minutes:02}:{seconds:02}', True, (255,255,255)), self.timer_display)
+        screen.blit(self.font.render(f'{self.collected}/{self.total_pickup}', True, (255,255,255)), self.collect_display)
         pygame.draw.rect(screen, (255,0,0), self.health_bar)
 
     def update(self):

@@ -47,7 +47,7 @@ world_data = [
     [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2,-2],
     [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-2],
     [-1, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0,-2],
-    [-1, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-2],
+    [-1, 0, 0, 0, 0, 2, 2, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0,-2],
     [-1, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0,-2],
     [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-2],
     [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-2],
@@ -57,7 +57,7 @@ world_data = [
 
 main_menu = menu.Menu()
 world = wld.World(world_data)
-game_stat = stats.GameStat()
+game_stat = stats.GameStat(len(world.collect_group))
 player = pl.Player(100, world.height - 130, 50, 80)
 
 
@@ -81,6 +81,10 @@ while run:
         #bullet hit
         if pygame.sprite.spritecollide(player, world.bullet_group, True):
             game_stat.damage(30)
+
+        #item collect
+        if pygame.sprite.spritecollide(player, world.collect_group, True):
+            game_stat.item_collected()
 
 
         world.update()
