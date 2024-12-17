@@ -2,7 +2,7 @@ import pygame
 import os
 import player as pl
 import world as wld
-import menu, stats
+import menu, stats, gameover
 from pygame.locals import *
 
 pygame.init()
@@ -56,12 +56,14 @@ world_data = [
 ]
 
 main_menu = menu.Menu()
+game_over = gameover.GameOver()
 world = wld.World(world_data)
 game_stat = stats.GameStat(len(world.collect_group))
 player = pl.Player(100, world.height - 130, 50, 80)
 
 
 run = True
+is_gameover = False
 game_start = False
 while run:
 
@@ -76,11 +78,11 @@ while run:
 
         #enemy collision
         if pygame.sprite.spritecollide(player, world.enemy_group, True):
-            print('enemy hit')
+            game_stat.damage(70)
 
         #bullet hit
         if pygame.sprite.spritecollide(player, world.bullet_group, True):
-            game_stat.damage(30)
+            game_stat.damage(50)
 
         #item collect
         if pygame.sprite.spritecollide(player, world.collect_group, True):

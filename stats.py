@@ -37,12 +37,12 @@ class GameStat:
         d_health = self.health - damage
 
         #apply damage when health is not zero
-        if d_health >= 0:
-            if d_health <= 0:
-                self.health = 0
-            else:
-                self.health = d_health
-            self.health_bar.width = self.health
+        if d_health <= 0:
+            self.health = 0
+        else:
+            self.health = d_health
+        self.health_bar.width = self.health
+            
 
     def item_collected(self):
         if self.collected < self.total_pickup:
