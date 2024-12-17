@@ -1,5 +1,5 @@
 import pygame
-import bullet as blt
+import components.bullet as bullet
 
 #Boss Class
 class Boss(pygame.sprite.Sprite):
@@ -27,8 +27,8 @@ class Boss(pygame.sprite.Sprite):
                 (-3, 4)   # Slightly left
             ]
             for dx, dy in directions:
-                bullet = blt.Bullet(self.rect.centerx, self.rect.centery, dx, dy)
-                self.bullet_group.add(bullet)
+                boss_bullet = bullet.Bullet(self.rect.centerx, self.rect.centery, dx, dy)
+                self.bullet_group.add(boss_bullet)
 
     def update(self):
         self.rect.x += self.move_direction

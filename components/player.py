@@ -7,6 +7,7 @@ class Player(pygame.sprite.Sprite):
         self.height = height
         self.x = x
         self.y = y
+        self.speed = 5
 
         #animation
         self.player_idle_right = []
@@ -89,13 +90,13 @@ class Player(pygame.sprite.Sprite):
             self.hasJumped = True 
         
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-            delta_x -= 4
+            delta_x -= self.speed
             self.animation_direction = 'left'
             if not self.hasJumped:
                 current_animation = self.player_run_left
 
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            delta_x += 4
+            delta_x += self.speed
             self.animation_direction = 'right'
             if not self.hasJumped:
                 current_animation = self.player_run_right

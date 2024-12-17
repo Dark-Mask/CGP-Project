@@ -1,6 +1,8 @@
 import pygame
+import components.minion as minion
+import components.tile as tile
+import components.boss as boss
 from pygame.locals import *
-import minion, tile, boss
 
 #World Class
 class World():

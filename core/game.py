@@ -1,7 +1,7 @@
 import pygame
-import player as pl
-import world as wo
-import stats as st
+import components.player as player
+import world.world as world
+import core.status as status
 from pygame.locals import *
 
 class Game():
@@ -31,9 +31,9 @@ class Game():
             [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         ]
 
-        self.world = wo.World(world_data)
-        self.stats = st.GameStat(len(self.world.collect_group))
-        self.player = pl.Player(100, self.world.height - 130, 50, 80)
+        self.game_world = world.World(world_data)
+        self.game_status = status.GameStat(len(self.game_world.collect_group))
+        self.game_player = player.Player(100, self.game_world.height - 130, 50, 80)
 
 
     def start(self, fps=60):
@@ -48,30 +48,30 @@ class Game():
                     run = False
         
             #enemy collision
-            if pygame.sprite.spritecollide(self.player, self.world.enemy_group, True):
-                self.stats.damage(70)
+            if pygame.sprite.spritecollide(self.game_player, self.game_world.enemy_group, True):
+                self.game_status.damage(70)
 
             #bullet hit
-            if pygame.sprite.spritecollide(self.player, self.world.bullet_group, True):
-                self.stats.damage(50)
+            if pygame.sprite.spritecollide(self.game_player, self.game_world.bullet_group, True):
+                self.game_status.damage(50)
 
             #item collect
-            if pygame.sprite.spritecollide(self.player, self.world.collect_group, True):
-                self.stats.item_collected()
+            if pygame.sprite.spritecollide(self.game_player, self.game_world.collect_group, True):
+                self.game_status.item_collected()
 
 
-            self.world.update()
-            self.player.update(self.world)
-            self.stats.update()
+            self.game_world.update()
+            self.game_player.update(self.game_world)
+            self.game_status.update()
 
-            self.world.draw(screen)
-            self.player.draw(screen)
-            self.stats.draw(screen)
+            self.game_world.draw(screen)
+            self.game_player.draw(screen)
+            self.game_status.draw(screen)
 
-            if self.stats.is_gameover():
+            if self.game_status.is_gameover():
                 result = 'gameover'
                 run = False
-            elif self.stats.is_winner():
+            elif self.game_status.is_winner():
                 result = 'win'
                 run = False
 
