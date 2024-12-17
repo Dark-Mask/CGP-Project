@@ -3,11 +3,10 @@ import components.bullet as bullet
 
 #Boss Class
 class Boss(pygame.sprite.Sprite):
-    def __init__(self, x, y, bullet_group):
+    def __init__(self, image, x, y, bullet_group):
         super().__init__()
         self.bullet_group = bullet_group
-        self.image = pygame.Surface((50, 50))
-        self.image.fill((255,255,255))
+        self.image = image
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.move_direction = 1

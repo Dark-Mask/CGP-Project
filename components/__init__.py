@@ -4,4 +4,4 @@ from . import bullet
 from . import item
 from . import minion
 from . import player
-from . import tile
+from . import block
