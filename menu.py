@@ -56,3 +56,29 @@ class Menu:
                 self.selected = 0
             if keys[pygame.K_DOWN]:
                 self.selected = 1
+
+    def start(self, fps=60):
+        screen = pygame.display.set_mode((self.width, self.height))
+        clock = pygame.time.Clock()
+
+        run = True
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+
+            self.update()
+            self.draw(screen)
+
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RETURN]:
+                run = False
+                
+
+            pygame.display.update()
+            clock.tick(fps)
+        
+        #close window
+        pygame.display.quit()
+        return self.get_selection()
+
