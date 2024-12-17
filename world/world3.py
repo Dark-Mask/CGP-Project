@@ -1,6 +1,5 @@
 import pygame
-import map.world as world
-
+import world.world as world
 
 class World1(world.World):
     def __init__(self, map_data):

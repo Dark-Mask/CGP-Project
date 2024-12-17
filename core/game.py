@@ -1,6 +1,6 @@
 import pygame
 import components.player as player
-import map.world1 as world
+import world.world1 as world
 import core.status as status
 from pygame.locals import *
 
