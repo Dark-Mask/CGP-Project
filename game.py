@@ -2,7 +2,7 @@ import pygame
 import os
 import player as pl
 import world as wld
-import main_menu, stats
+import menu, stats
 from pygame.locals import *
 
 pygame.init()
@@ -55,7 +55,7 @@ world_data = [
     [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
-menu = main_menu.Menu()
+main_menu = menu.Menu()
 world = wld.World(world_data)
 game_stat = stats.GameStat()
 player = pl.Player(100, world.height - 130, 50, 80)
@@ -80,7 +80,7 @@ while run:
 
         #bullet hit
         if pygame.sprite.spritecollide(player, world.bullet_group, True):
-            print('bullet hit')
+            game_stat.damage(30)
 
 
         world.update()
@@ -92,18 +92,18 @@ while run:
         game_stat.draw(screen)
 
     else:
-        menu.update()
-        menu.draw(screen)
+        main_menu.update()
+        main_menu.draw(screen)
 
-        if screen.get_width() != menu.width and screen.get_height() != menu.height:
+        if screen.get_width() != main_menu.width and screen.get_height() != main_menu.height:
             os.environ['SDL_VIDEO_CENTERED'] = '1'
-            screen = pygame.display.set_mode((menu.width, menu.height))
+            screen = pygame.display.set_mode((main_menu.width, main_menu.height))
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RETURN]:
-            if menu.get_selection() == 'start':
+            if main_menu.get_selection() == 'start':
                 game_start = True
-            elif menu.get_selection()  == 'quit':
+            elif main_menu.get_selection()  == 'quit':
                 run = False
         
 
