@@ -24,21 +24,39 @@ class World():
                 #word map
                 cell = data[row][col]
                 block = None
-
+                temp_row = row
+                temp_col = col
+                
                 if cell == 1:
                     block = dirt
                 elif cell == 2:
                     block = grass
                 elif cell == 3:
-                    enemy_minion = minion.Minion(col * self.tile_size, row * self.tile_size + 15, self.tile_size - 15, self.tile_size - 15)
+                    enemy_minion = minion.Minion(temp_col * self.tile_size, temp_row * self.tile_size + 15, self.tile_size - 15, self.tile_size - 15)
                     self.enemy_group.add(enemy_minion)
                 elif cell == 4:
-                    enemy_boss = boss.Boss(col * self.tile_size, row * self.tile_size, self.bullet_group)
+                    enemy_boss = boss.Boss(temp_col * self.tile_size, temp_row * self.tile_size, self.bullet_group)
                     self.enemy_group.add(enemy_boss)
+                elif cell == -1:
+                    #shify block left
+                    block = dirt
+                    temp_col -= 1
+                elif cell == -2:
+                    #shify block right
+                    block = dirt
+                    temp_col += 1
+                elif cell == -3:
+                    #shify block up
+                    block = dirt
+                    temp_row -= 1
+                elif cell == -4:
+                    #shify block down
+                    block = dirt
+                    temp_row += 1
 
                 if block:
                     img = pygame.transform.scale(block, (self.tile_size, self.tile_size))
-                    block_tile = tile.Block(col * self.tile_size, row * self.tile_size, img)
+                    block_tile = tile.Block(temp_col * self.tile_size, temp_row * self.tile_size, img)
                     self.block_group.add(block_tile)
 
 
