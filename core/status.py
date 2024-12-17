@@ -8,19 +8,19 @@ class GameStat:
         self.time = 0
         self.shield = False
 
-        self.health_img = pygame.image.load('assets/images/stats/life.png')
+        self.health_img = pygame.image.load('assets/images/status/life.png')
         self.health_img = pygame.transform.scale(self.health_img, (350, 80))
         self.health_rect = self.health_img.get_rect()
         self.health_rect.x = 50
         self.health_rect.y = 20
 
-        self.timer_img = pygame.image.load('assets/images/stats/timer.png')
+        self.timer_img = pygame.image.load('assets/images/status/timer.png')
         self.timer_img = pygame.transform.scale(self.timer_img, (200, 80))
         self.timer_rect = self.timer_img.get_rect()
         self.timer_rect.x = 500
         self.timer_rect.y = 20
 
-        self.collect_img = pygame.image.load('assets/images/stats/collect.png')
+        self.collect_img = pygame.image.load('assets/images/status/collect.png')
         self.collect_img = pygame.transform.scale(self.collect_img, (200, 80))
         self.collect_rect = self.collect_img.get_rect()
         self.collect_rect.x = 800
