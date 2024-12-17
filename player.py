@@ -59,6 +59,10 @@ class Player(pygame.sprite.Sprite):
     def player_border(self, screen):
         pygame.draw.rect(screen, (255,0,0), self.rect, 2)
 
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
+
+
     def update(self, world):
         #temporary store movement change before applying
         delta_x = 0

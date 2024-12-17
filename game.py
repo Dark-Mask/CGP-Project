@@ -59,8 +59,6 @@ menu = main_menu.Menu()
 world = wld.World(world_data)
 game_stat = stats.GameStat()
 player = pl.Player(100, world.height - 130, 50, 80)
-all_sprites = pygame.sprite.Group()
-all_sprites.add(player)
 
 
 run = True
@@ -90,7 +88,7 @@ while run:
         game_stat.update()
 
         world.draw(screen)
-        all_sprites.draw(screen)
+        player.draw(screen)
         game_stat.draw(screen)
 
     else:
