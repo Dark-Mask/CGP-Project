@@ -11,6 +11,10 @@ class Game():
 
     def __init__(self):
         
+        self.width = 1200
+        self.height = 700
+        self.tile_size = 30
+
         self.maps = {
             "forest" : map.Forest,
             "snow" : map.Snow,
@@ -18,8 +22,6 @@ class Game():
         }
         self.levels = []
         self.game_manager = manager.GameManager()
-        self.screen = pygame.display.set_mode((1200, 700))
-        self.clock = pygame.time.Clock()
         self._load_levels()
 
 
@@ -37,6 +39,9 @@ class Game():
 
 
     def start(self, fps=60):
+        screen = pygame.display.set_mode((self.width, self.height))
+        clock = pygame.time.Clock()
+        
         for level in self.levels:
             world_map = self.maps[level['world']]
             word_data = level['world_data']
@@ -69,11 +74,11 @@ class Game():
                 game_player.update(game_world)
                 game_status.update()
 
-                game_world.draw(self.screen)
-                game_player.draw(self.screen)
-                game_player.player_border(self.screen)
-                game_status.draw(self.screen)
-                # game_world.draw_grid(self.screen)
+                game_world.draw(screen)
+                game_player.draw(screen)
+                game_player.player_border(screen)
+                game_status.draw(screen)
+                # game_world.draw_grid(screen)
                 pygame.display.update()
 
                 #check condition and update score
@@ -84,7 +89,7 @@ class Game():
                     pygame.time.wait(2000)
                     run = False
                     
-                self.clock.tick(fps)
+                clock.tick(fps)
 
             #level score
             self.game_manager.track_collection(game_status.collected)
