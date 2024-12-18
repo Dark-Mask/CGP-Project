@@ -6,8 +6,6 @@ pygame.display.set_caption('Jolly Jumpers')
 
 main_menu = menu.Menu()
 play_game = game.Game()
-loss_game = gameover.GameOver()
-win_game = winner.Winner()
 
 if main_menu.run() == 'start':
     game_manager = play_game.start()
@@ -17,11 +15,10 @@ if main_menu.run() == 'start':
         sys.exit()
 
     if game_manager.is_gameover():
+        loss_game = gameover.GameOver(game_manager)
         loss_game.start()
     else:
+        win_game = winner.Winner(game_manager)
         win_game.start()
-    
-    print(f'time: {game_manager.final_time()}')
-    print(f'collected: {game_manager.final_collection()}')
 
 pygame.quit()

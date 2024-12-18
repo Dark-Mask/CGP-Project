@@ -1,9 +1,10 @@
 import pygame
 
 class Winner:
-    def __init__(self):
+    def __init__(self, game_manager):
         self.width = 800
         self.height = 600
+        self.game_manager = game_manager
 
         self.img = pygame.image.load('assets/images/background/cityskyline.png')
         self.img = pygame.transform.scale(self.img, (self.width, self.height))
@@ -17,6 +18,9 @@ class Winner:
         self.select_cooldown = 50 #millis
         self.last_tick = pygame.time.get_ticks()
         self.selected = 0
+
+        print(f'time: {game_manager.final_time()}')
+        print(f'collected: {game_manager.final_collection()}')
 
     def get_selection(self):
         if self.selected == 0:
