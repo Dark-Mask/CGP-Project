@@ -20,7 +20,8 @@ class World():
     def __init__(self, map_data, background, ground, platform, pickup, minion, boss):
         self.width = 1200
         self.height = 700
-        self.tile_size = 40
+        self.tile_size = 30
+        self.reduce_tile_size = self.tile_size * 0.5
         self.map_data = map_data
         
         self.enemy_group = pygame.sprite.Group()
@@ -81,20 +82,20 @@ class World():
 
 
     def _add_item(self, image, col, row):
-        image = pygame.transform.scale(image, (self.tile_size - 15, self.tile_size - 15))
-        world_item = item.Item(image, col * self.tile_size, row * self.tile_size + 15)
+        image = pygame.transform.scale(image, (self.tile_size - self.reduce_tile_size , self.tile_size - self.reduce_tile_size))
+        world_item = item.Item(image, col * self.tile_size, row * self.tile_size + self.reduce_tile_size)
         self.collect_group.add(world_item)
 
 
     def _add_minion(self, image, col, row):
-        image = pygame.transform.scale(image, (self.tile_size - 15, self.tile_size - 15))
-        world_minion = minion.Minion(image, col * self.tile_size, row * self.tile_size + 15)
+        image = pygame.transform.scale(image, (self.tile_size - self.reduce_tile_size, self.tile_size - self.reduce_tile_size))
+        world_minion = minion.Minion(image, col * self.tile_size, row * self.tile_size + self.reduce_tile_size)
         self.enemy_group.add(world_minion)
 
 
     def _add_boss(self, image, col, row):
-        image = pygame.transform.scale(image, (self.tile_size + 15, self.tile_size + 15))
-        world_boss = boss.Boss(image, col * self.tile_size, row * self.tile_size, self.bullet_group)
+        image = pygame.transform.scale(image, (self.tile_size + self.reduce_tile_size, self.tile_size + self.reduce_tile_size))
+        world_boss = boss.Boss(image, col * self.tile_size, row * self.tile_size - self.reduce_tile_size, self.bullet_group)
         self.enemy_group.add(world_boss)
 
 
@@ -109,8 +110,8 @@ class World():
     def draw(self, screen):
         screen.blit(self.background, (0,0))
         self.collect_group.draw(screen)
-        self.enemy_group.draw(screen)
         self.block_group.draw(screen)
+        self.enemy_group.draw(screen)
         self.bullet_group.draw(screen)
 
 

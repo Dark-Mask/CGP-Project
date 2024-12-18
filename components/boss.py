@@ -26,7 +26,9 @@ class Boss(pygame.sprite.Sprite):
                 (-3, 4)   # Slightly left
             ]
             for dx, dy in directions:
-                boss_bullet = bullet.Bullet(self.rect.centerx, self.rect.centery, dx, dy)
+                ammo = pygame.Surface((self.rect.width * 0.08, self.rect.height * 0.17))
+                ammo.fill((255,0,0))
+                boss_bullet = bullet.Bullet(ammo, self.rect.centerx, self.rect.centery, dx, dy)
                 self.bullet_group.add(boss_bullet)
 
     def update(self):
