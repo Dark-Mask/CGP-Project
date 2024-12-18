@@ -59,6 +59,7 @@ class Menu:
 
     def run(self, fps=60):
         screen = pygame.display.set_mode((self.width, self.height))
+        pygame.display.set_caption('Jolly Jumpers - Main Menu')
         clock = pygame.time.Clock()
 
         has_selected = False

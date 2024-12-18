@@ -59,6 +59,7 @@ class GameOver:
 
     def start(self, fps=60):
         screen = pygame.display.set_mode((self.width, self.height))
+        pygame.display.set_caption('Jolly Jumpers - GameOver')
         clock = pygame.time.Clock()
 
         run = True
