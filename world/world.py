@@ -48,6 +48,7 @@ class World():
                 #modify row and column value if shift used
                 if cell in (SHIFT_LEFT, SHIFT_RIGHT, SHIFT_UP, SHIFT_DOWN):
                     temp_col, temp_row = self._calculate_shift(cell, temp_col, temp_row)
+                    cell = GROUND
 
                 #add object to world
                 if cell == GROUND:

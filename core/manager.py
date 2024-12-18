@@ -1,9 +1,10 @@
 import pygame
 
-class GameStat:
-    def __init__(self, collect_count):
+class GameManager:
+    def __init__(self, world):
+        self.world = world
         self.health = 240
-        self.total_pickup = collect_count
+        self.total_pickup = len(world.collect_group)
         self.collected = 0
         self.time = 0
         self.shield = False
@@ -27,11 +28,16 @@ class GameStat:
         self.collect_rect.y = 20
 
         self.font = pygame.font.Font(None, 50)
+        self.font2 = pygame.font.Font(None, 50)
+
         self.health_bar = pygame.Rect(self.health_rect.x+85, self.health_rect.y+20, self.health, 40)
         self.timer_display = (self.timer_rect.x+82, self.timer_rect.y+23)
         self.collect_display = (self.collect_rect.x+85, self.collect_rect.y+23)
         self.last_tick = pygame.time.get_ticks()
 
+
+    def next_level(self, screen):
+        screen.blit(self.font2.render(f'Level Complete', True, (255,255,255)), ())
 
     def is_gameover(self):
         return self.health == 0
@@ -55,6 +61,7 @@ class GameStat:
     def item_collected(self):
         if self.collected < self.total_pickup:
             self.collected += 1
+
 
     def draw(self, screen):
         screen.blit(self.health_img, self.health_rect)
