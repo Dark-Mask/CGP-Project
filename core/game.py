@@ -1,6 +1,6 @@
 import pygame
 import components.player as player
-import core.manager as manager
+import core.status as status
 from world import *
 from pygame.locals import *
 
@@ -36,7 +36,7 @@ class Game():
 ]
 
         self.game_world = cementery.Cementery(world_data)
-        self.game_status = manager.GameManager(self.game_world)
+        self.game_manager = status.GameStatus(self.game_world)
         self.game_player = player.Player(100, self.game_world.height - 130, 45, 60)
 
 
@@ -53,35 +53,42 @@ class Game():
         
             #enemy collision
             if pygame.sprite.spritecollide(self.game_player, self.game_world.enemy_group, True):
-                self.game_status.damage(70)
+                self.game_manager.damage(70)
 
             #bullet hit
             if pygame.sprite.spritecollide(self.game_player, self.game_world.bullet_group, True):
-                self.game_status.damage(50)
+                self.game_manager.damage(50)
 
             #item collect
             if pygame.sprite.spritecollide(self.game_player, self.game_world.collect_group, True):
-                self.game_status.item_collected()
+                self.game_manager.item_collected()
 
 
             self.game_world.update()
             self.game_player.update(self.game_world)
-            self.game_status.update()
+            self.game_manager.update()
 
             self.game_world.draw(screen)
             self.game_player.draw(screen)
             self.game_player.player_border(screen)
-            self.game_world.draw_grid(screen)
-            self.game_status.draw(screen)
+            self.game_manager.draw(screen)
+            # self.game_world.draw_grid(screen)
 
-            if self.game_status.is_gameover():
-                result = 'gameover'
-                run = False
-            elif self.game_status.is_winner():
-                result = 'win'
-                run = False
+            #draw complete level
+            if self.game_manager.is_winner():
+                self.game_manager.next_level(screen)
 
             pygame.display.update()
+
+            #check condition
+            if self.game_manager.is_gameover():
+                result = 'gameover'
+                run = False
+            elif self.game_manager.is_winner():
+                result = 'win'
+                pygame.time.wait(2000)
+                run = False
+                
             clock.tick(fps)
 
         #close window
