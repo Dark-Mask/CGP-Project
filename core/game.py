@@ -73,16 +73,9 @@ class Game():
                 game_player.player_border(self.screen)
                 game_status.draw(self.screen)
                 # game_world.draw_grid(screen)
-
-                #draw complete level
-                if game_status.has_completed():
-                    game_status.next_level(self.screen)
-
                 pygame.display.update()
 
                 #check condition and update score
-                self.game_manager.track_collection(game_status.collected)
-                self.game_manager.track_time(game_status.time)
                 if not game_status.has_heatlh():
                     self.game_manager.set_gameover(True)
                     run = False
@@ -91,6 +84,10 @@ class Game():
                     run = False
                     
                 self.clock.tick(fps)
+
+            #level score
+            self.game_manager.track_collection(game_status.collected)
+            self.game_manager.track_time(game_status.time)
 
             #break level game loop
             if self.game_manager.is_gameover():

@@ -56,7 +56,7 @@ class GameStatus:
         if self.collected < self.total_pickup:
             self.collected += 1
 
-    def next_level(self, screen):
+    def _next_level(self, screen):
         width, height = screen.get_size()
         text = self.font2.render(f'Level Complete', True, (192,192,192))
         text_rect = text.get_rect()
@@ -74,6 +74,10 @@ class GameStatus:
         screen.blit(self.font.render(f'{minutes:02}:{seconds:02}', True, (255,255,255)), self.timer_display)
         screen.blit(self.font.render(f'{self.collected}/{self.total_pickup}', True, (255,255,255)), self.collect_display)
         pygame.draw.rect(screen, (255,0,0), self.health_bar)
+
+        #next level
+        if self.has_completed():
+            self._next_level(screen)
 
     def update(self):
         current_tick = pygame.time.get_ticks()
