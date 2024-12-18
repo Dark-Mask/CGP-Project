@@ -57,7 +57,7 @@ class Menu:
             if keys[pygame.K_DOWN]:
                 self.selected = 1
 
-    def start(self, fps=60):
+    def run(self, fps=60):
         screen = pygame.display.set_mode((self.width, self.height))
         clock = pygame.time.Clock()
 
