@@ -56,28 +56,25 @@ class GameStatus:
         if self.collected < self.total_pickup:
             self.collected += 1
 
-    def _next_level(self, screen):
-        width, height = screen.get_size()
-        text = self.font2.render(f'Level Complete', True, (192,192,192))
-        text_rect = text.get_rect()
-        text_rect.center = (width // 2, height // 2)
-        screen.blit(text,  text_rect)
-
     def draw(self, screen):
         screen.blit(self.health_img, self.health_rect)
         screen.blit(self.timer_img, self.timer_rect)
         screen.blit(self.collect_img, self.collect_rect)
 
-        #format time
+        #time and collection status
         minutes = self.time // 60
         seconds = self.time % 60
         screen.blit(self.font.render(f'{minutes:02}:{seconds:02}', True, (255,255,255)), self.timer_display)
         screen.blit(self.font.render(f'{self.collected}/{self.total_pickup}', True, (255,255,255)), self.collect_display)
         pygame.draw.rect(screen, (255,0,0), self.health_bar)
 
-        #next level
+        #level complete text
         if self.has_completed():
-            self._next_level(screen)
+            width, height = screen.get_size()
+            text = self.font2.render(f'Level Complete', True, (192,192,192))
+            text_rect = text.get_rect()
+            text_rect.center = (width // 2, height // 2)
+            screen.blit(text,  text_rect)
 
     def update(self):
         current_tick = pygame.time.get_ticks()
