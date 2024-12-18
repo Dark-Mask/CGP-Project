@@ -1,6 +1,4 @@
-import os
-import json
-import pygame
+import os, json, pygame
 import components.player as player
 import core.manager as manager
 import core.status as status
