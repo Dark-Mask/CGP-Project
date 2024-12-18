@@ -2,7 +2,8 @@ import os
 import json
 import pygame
 import components.player as player
-from core import *
+import core.manager as manager
+import core.status as status
 from world import *
 from pygame.locals import *
 
@@ -36,8 +37,6 @@ class Game():
 
 
     def start(self, fps=60):
-        result = ''
-
         for level in self.levels:
             world_map = self.maps[level['world']]
             word_data = level['world_data']
@@ -76,25 +75,27 @@ class Game():
                 # game_world.draw_grid(screen)
 
                 #draw complete level
-                if game_status.is_winner():
+                if game_status.has_completed():
                     game_status.next_level(self.screen)
 
                 pygame.display.update()
 
-                #check condition
-                if game_status.is_gameover():
-                    result = 'gameover'
+                #check condition and update score
+                self.game_manager.track_collection(game_status.collected)
+                self.game_manager.track_time(game_status.time)
+                if not game_status.has_heatlh():
+                    self.game_manager.set_gameover(True)
                     run = False
-                elif game_status.is_winner():
-                    result = 'winner'
+                elif game_status.has_completed():
                     pygame.time.wait(2000)
                     run = False
                     
                 self.clock.tick(fps)
 
-            if game_status.is_gameover():
+            #break level game loop
+            if self.game_manager.is_gameover():
                 break
 
         #close window
         pygame.display.quit()
-        return result
+        return self.game_manager

@@ -36,13 +36,11 @@ class GameStatus:
         self.last_tick = pygame.time.get_ticks()
 
 
-    def is_gameover(self):
-        return self.health == 0
+    def has_heatlh(self):
+        return self.health > 0
 
-
-    def is_winner(self):
+    def has_completed(self):
         return self.collected == self.total_pickup
-
 
     def damage(self, damage):
         d_health = self.health - damage
@@ -52,13 +50,11 @@ class GameStatus:
             self.health = 0
         else:
             self.health = d_health
-        self.health_bar.width = self.health
-            
+        self.health_bar.width = self.health    
 
     def item_collected(self):
         if self.collected < self.total_pickup:
             self.collected += 1
-
 
     def next_level(self, screen):
         width, height = screen.get_size()
@@ -66,7 +62,6 @@ class GameStatus:
         text_rect = text.get_rect()
         text_rect.center = (width // 2, height // 2)
         screen.blit(text,  text_rect)
-        
 
     def draw(self, screen):
         screen.blit(self.health_img, self.health_rect)
