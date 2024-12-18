@@ -21,9 +21,11 @@ class Boss(pygame.sprite.Sprite):
 
             # Fire multiple bullets in different directions
             directions = [
-                (0, 5),  # Straight up
-                (3, 4),  # Slightly right
-                (-3, 4)   # Slightly left
+                (0, 5),  # Straight down
+                (2, 4),  # 1st right
+                (4, 3),  # 2nd right
+                (-2, 4), # 1st left
+                (-4, 3), # 2nd right
             ]
             for dx, dy in directions:
                 ammo = pygame.Surface((self.rect.width * 0.08, self.rect.height * 0.17))
