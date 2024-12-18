@@ -95,7 +95,7 @@ class World():
 
     def _add_boss(self, image, col, row):
         image = pygame.transform.scale(image, (self.tile_size + self.reduce_tile_size, self.tile_size + self.reduce_tile_size))
-        world_boss = boss.Boss(image, col * self.tile_size, row * self.tile_size - self.reduce_tile_size, self.bullet_group)
+        world_boss = boss.Boss(image, col * self.tile_size, row * self.tile_size - (self.reduce_tile_size + self.reduce_tile_size * 0.5), self.bullet_group)
         self.enemy_group.add(world_boss)
 
 
