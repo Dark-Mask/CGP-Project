@@ -1,9 +1,7 @@
 import pygame
 import components.player as player
-import world.cementery as cementery
-import world.forest as forest
-import world.snow as snow
 import core.status as status
+from world import *
 from pygame.locals import *
 
 class Game():

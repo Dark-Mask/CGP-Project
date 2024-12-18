@@ -1,6 +1,5 @@
 import pygame
-import core.menu as menu
-import core.game as game
+from core import *
 
 pygame.init()
 pygame.display.set_caption('Jolly Jumpers')
