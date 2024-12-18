@@ -49,6 +49,7 @@ class Game():
             while run:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
+                        self.game_manager.shutdown(True)
                         run = False
             
                 #enemy collision
@@ -90,7 +91,7 @@ class Game():
             self.game_manager.track_time(game_status.time)
 
             #break level game loop
-            if self.game_manager.is_gameover():
+            if self.game_manager.is_gameover() or self.game_manager.is_shutdown():
                 break
 
         #close window

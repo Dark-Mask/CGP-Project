@@ -21,7 +21,7 @@ class World():
         self.width = 1200
         self.height = 700
         self.tile_size = 30
-        self.reduce_tile_size = self.tile_size * 0.5
+        self.reduce_tile_size = self.tile_size * 0.1
         self.map_data = map_data
         
         self.enemy_group = pygame.sprite.Group()

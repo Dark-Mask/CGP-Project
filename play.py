@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 from core import *
 
 pygame.init()
@@ -8,6 +8,10 @@ main_menu = menu.Menu()
 if main_menu.run() == 'start':
     play_game = game.Game()
     game_manager = play_game.start()
+
+    if game_manager.is_shutdown():
+        pygame.quit()
+        sys.exit()
 
     if game_manager.is_gameover():
         print('Play: gameover')
