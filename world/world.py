@@ -83,13 +83,13 @@ class World():
 
     def _add_item(self, image, col, row):
         image = pygame.transform.scale(image, (self.tile_size - self.reduce_tile_size , self.tile_size - self.reduce_tile_size))
-        world_item = item.Item(image, col * self.tile_size, row * self.tile_size + self.reduce_tile_size)
+        world_item = item.Item(image, col * self.tile_size, row * self.tile_size + self.reduce_tile_size, self)
         self.collect_group.add(world_item)
 
 
     def _add_minion(self, image, col, row):
         image = pygame.transform.scale(image, (self.tile_size - self.reduce_tile_size, self.tile_size - self.reduce_tile_size))
-        world_minion = minion.Minion(image, col * self.tile_size, row * self.tile_size + self.reduce_tile_size)
+        world_minion = minion.Minion(image, col * self.tile_size, row * self.tile_size + self.reduce_tile_size, self)
         self.enemy_group.add(world_minion)
 
 
@@ -118,6 +118,7 @@ class World():
     def update(self):
         self.bullet_group.update()
         self.enemy_group.update()
+        self.collect_group.update()
 
 
 
