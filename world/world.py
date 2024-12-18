@@ -4,12 +4,14 @@ import components.block as block
 import components.item as item
 import components.boss as boss
 
+#use in game
 GROUND = 1
 PLATFORM = 2
 PICKUP = 3
 ENEMY_MINION = 4
 ENEMY_BOSS = 5
 
+#use for border only
 SHIFT_LEFT = -1
 SHIFT_RIGHT = -2
 SHIFT_UP = -3
