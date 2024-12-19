@@ -11,22 +11,15 @@ class GameOver:
         self.menu = pygame.image.load('assets/images/gameover.png')
         self.menu = pygame.transform.scale(self.menu, (450, 500))
 
-
-        self.options = [('YES', (170, 320)), ('NO', (180, 420))]
+        self.options = [('YES', (185, 330)), ('NO', (195, 430))]
         self.font = pygame.font.Font(None, 70)
         self.color = pygame.color.Color(240, 240, 240)
         self.select_cooldown = 50 #millis
         self.last_tick = pygame.time.get_ticks()
         self.selected = 0
 
-        print(f'time: {game_manager.final_time()}')
-        print(f'collected: {game_manager.final_collection()}')
-
     def get_selection(self):
-        if self.selected == 0:
-            return 'start'
-        elif self.selected == 1:
-            return 'quit'
+        return self.selected == 0
 
     def draw(self, screen):
         menu_center_x = (self.width - self.menu.get_width()) // 2
@@ -61,7 +54,7 @@ class GameOver:
             if keys[pygame.K_DOWN]:
                 self.selected = 1
 
-    def start(self, fps=60):
+    def run(self, fps=60):
         screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption('Jolly Jumpers - GameOver')
         clock = pygame.time.Clock()

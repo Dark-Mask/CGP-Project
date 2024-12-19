@@ -35,7 +35,7 @@ class Winner:
             screen.blit(self.font.render(text, True, self.color), (center_x+coord[0], center_y+coord[1]))
             
 
-    def start(self, fps=60):
+    def run(self, fps=60):
         screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption('Jolly Jumpers - Winner')
         clock = pygame.time.Clock()
@@ -58,4 +58,5 @@ class Winner:
         
         #close window
         pygame.display.quit()
+        return False
 
