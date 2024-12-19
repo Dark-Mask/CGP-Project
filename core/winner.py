@@ -8,14 +8,11 @@ class Winner:
         self.background = pygame.image.load('assets/images/background/cityskyline.png')
         self.background = pygame.transform.scale(self.background, (self.width, self.height))
         self.summary = pygame.image.load('assets/images/winner.png')
-        self.summary = pygame.transform.scale(self.summary, (550, 500))
+        self.summary = pygame.transform.scale(self.summary, (380, 550))
 
-        self.options = [('Start', (170, 320)), ('Quit', (180, 420))]
-        self.font = pygame.font.Font(None, 70)
+        self.game_summary = [(self.format_time(game_manager.final_time()), (170, 255)), (str(game_manager.final_collection()), (170, 325))]
+        self.font = pygame.font.Font(None, 45)
         self.color = pygame.color.Color(240, 240, 240)
-
-        self.display_time = self.format_time(game_manager.final_time())
-        self.display_collection = game_manager.final_collection()
 
     
     def format_time(self, time):
@@ -33,7 +30,9 @@ class Winner:
         screen.blit(self.summary, (center_x, center_y))
 
         #draw options
-        screen.blit(self.font.render(f'{self.display_time}', True, self.color), (center_x, center_y))
+        for content in self.game_summary:
+            text, coord = content
+            screen.blit(self.font.render(text, True, self.color), (center_x+coord[0], center_y+coord[1]))
             
 
     def start(self, fps=60):
