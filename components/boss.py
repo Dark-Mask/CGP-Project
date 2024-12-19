@@ -5,6 +5,8 @@ import components.bullet as bullet
 class Boss(pygame.sprite.Sprite):
     def __init__(self, image, x, y, bullet_group):
         super().__init__()
+        self.shoot_effect = pygame.mixer.Sound('assets/sounds/shooting_effect.mp3')
+        self.shoot_effect.set_volume(0.1)
         self.bullet_group = bullet_group
         self.image = image
         self.rect = self.image.get_rect()
@@ -32,6 +34,7 @@ class Boss(pygame.sprite.Sprite):
                 ammo.fill((255,0,0))
                 boss_bullet = bullet.Bullet(ammo, self.rect.centerx, self.rect.centery, dx, dy)
                 self.bullet_group.add(boss_bullet)
+                self.shoot_effect.play()
 
     def update(self):
         self.rect.x += self.move_direction
