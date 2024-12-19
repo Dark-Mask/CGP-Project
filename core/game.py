@@ -99,7 +99,7 @@ class Game():
 
                     game_world.draw(screen)
                     game_player.draw(screen)
-                    game_player.player_border(screen)
+                    # game_player.player_border(screen)
                     game_status.draw(screen)
                     # game_world.draw_grid(screen)
                     pygame.display.update()
