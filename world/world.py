@@ -67,6 +67,7 @@ class World():
 
     def play_background_music(self):
         pygame.mixer.music.load(self.music)
+        pygame.mixer.music.set_volume(0.3)
         pygame.mixer.music.play(-1) #loop
                 
     def _calculate_shift(self, shift, col, row):
