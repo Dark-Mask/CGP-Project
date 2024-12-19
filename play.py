@@ -2,6 +2,7 @@ import pygame, sys
 from core import *
 
 pygame.init()
+pygame.mixer.init()
 pygame.display.set_caption('Jolly Jumpers')
 
 running = True

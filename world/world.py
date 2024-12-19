@@ -19,12 +19,13 @@ SHIFT_DOWN = -4
 
 #World Class
 class World():
-    def __init__(self, map_data, background, ground, platform, pickup, minion, boss):
+    def __init__(self, map_data, background, music, ground, platform, pickup, minion, boss):
         self.width = 1200
         self.height = 700
         self.tile_size = 30
         self.reduce_tile_size = self.tile_size * 0.1
         self.map_data = map_data
+        self.music = music
         
         self.enemy_group = pygame.sprite.Group()
         self.collect_group = pygame.sprite.Group()
@@ -63,8 +64,11 @@ class World():
                     self._add_minion(self.minion, temp_col, temp_row)
                 elif cell == ENEMY_BOSS:
                     self._add_boss(self.boss, temp_col, temp_row)
-                
 
+    def play_background_music(self):
+        pygame.mixer.music.load(self.music)
+        pygame.mixer.music.play(-1) #loop
+                
     def _calculate_shift(self, shift, col, row):
         if shift == SHIFT_LEFT:
             col -= 1
@@ -77,30 +81,25 @@ class World():
         
         return (col, row)
 
-
     def _add_block(self, image, col, row):
         image = pygame.transform.scale(image, (self.tile_size, self.tile_size))
         world_block = block.Block(image, col * self.tile_size, row * self.tile_size)
         self.block_group.add(world_block)
-
 
     def _add_item(self, image, col, row):
         image = pygame.transform.scale(image, (self.tile_size - self.reduce_tile_size , self.tile_size - self.reduce_tile_size))
         world_item = item.Item(image, col * self.tile_size, row * self.tile_size + self.reduce_tile_size, self)
         self.collect_group.add(world_item)
 
-
     def _add_minion(self, image, col, row):
         image = pygame.transform.scale(image, (self.tile_size - self.reduce_tile_size, self.tile_size - self.reduce_tile_size))
         world_minion = minion.Minion(image, col * self.tile_size, row * self.tile_size + self.reduce_tile_size, self)
         self.enemy_group.add(world_minion)
 
-
     def _add_boss(self, image, col, row):
         image = pygame.transform.scale(image, (self.tile_size + self.reduce_tile_size, self.tile_size + self.reduce_tile_size))
         world_boss = boss.Boss(image, col * self.tile_size, row * self.tile_size - (self.reduce_tile_size + self.reduce_tile_size * 0.5), self.bullet_group)
         self.enemy_group.add(world_boss)
-
 
     def draw_grid(self, screen):
         for line in range(int(self.height/self.tile_size)):
@@ -109,14 +108,12 @@ class World():
         for line in range(int(self.width/self.tile_size)):
             pygame.draw.line(screen, (255,255,255), (line * self.tile_size, 0), (line * self.tile_size, self.height))
 
-
     def draw(self, screen):
         screen.blit(self.background, (0,0))
         self.collect_group.draw(screen)
         self.block_group.draw(screen)
         self.enemy_group.draw(screen)
         self.bullet_group.draw(screen)
-
 
     def update(self):
         self.bullet_group.update()

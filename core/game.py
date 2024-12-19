@@ -48,6 +48,7 @@ class Game():
 
             game_status = status.GameStatus(game_world)
             game_player = player.Player(100, game_world.height - 130, 45, 60)
+            game_world.play_background_music()
 
             run = True
             while run:
@@ -85,6 +86,7 @@ class Game():
                     self.game_manager.set_gameover(True)
                     run = False
                 elif game_status.has_completed():
+                    pygame.mixer.music.stop()
                     pygame.time.wait(1800)
                     run = False
                     
@@ -96,8 +98,10 @@ class Game():
 
             #break level game loop
             if self.game_manager.is_gameover() or self.game_manager.is_shutdown():
+                pygame.mixer.music.stop()
                 break
 
         #close window
         pygame.display.quit()
+        pygame.mixer.music.stop()
         return self.game_manager
