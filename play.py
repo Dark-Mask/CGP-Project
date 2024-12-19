@@ -13,8 +13,7 @@ while running:
         game_manager = play_game.start()
 
         if game_manager.is_shutdown():
-            pygame.quit()
-            sys.exit()
+            break
 
         if game_manager.is_gameover():
             loss_game = gameover.GameOver(game_manager)

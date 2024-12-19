@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 
 class GameOver:
     def __init__(self, game_manager):
@@ -63,7 +63,8 @@ class GameOver:
         while run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = False
+                    pygame.quit()
+                    sys.exit()
 
             self.update()
             self.draw(screen)

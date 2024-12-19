@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 
 class Winner:
     def __init__(self, game_manager):
@@ -44,7 +44,8 @@ class Winner:
         while run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = False
+                    pygame.quit()
+                    sys.exit()
 
             self.draw(screen)
 
@@ -58,5 +59,5 @@ class Winner:
         
         #close window
         pygame.display.quit()
-        return False
+        return True
 
