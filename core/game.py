@@ -85,7 +85,7 @@ class Game():
                     self.game_manager.set_gameover(True)
                     run = False
                 elif game_status.has_completed():
-                    pygame.time.wait(2000)
+                    pygame.time.wait(1800)
                     run = False
                     
                 clock.tick(fps)
