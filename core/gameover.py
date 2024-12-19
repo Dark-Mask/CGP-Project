@@ -8,11 +8,11 @@ class GameOver:
 
         self.img = pygame.image.load('assets/images/background/cityskyline.png')
         self.img = pygame.transform.scale(self.img, (self.width, self.height))
-        self.menu = pygame.image.load('assets/images/menu.png')
+        self.menu = pygame.image.load('assets/images/gameover.png')
         self.menu = pygame.transform.scale(self.menu, (450, 500))
 
 
-        self.options = [('Start', (170, 320)), ('Quit', (180, 420))]
+        self.options = [('YES', (170, 320)), ('NO', (180, 420))]
         self.font = pygame.font.Font(None, 70)
         self.color = pygame.color.Color(240, 240, 240)
         self.select_cooldown = 50 #millis
