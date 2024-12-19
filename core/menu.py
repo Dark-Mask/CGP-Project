@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 
 class Menu:
     def __init__(self):
@@ -19,10 +19,7 @@ class Menu:
         self.selected = 0
 
     def get_selection(self):
-        if self.selected == 0:
-            return 'start'
-        elif self.selected == 1:
-            return 'quit'
+        return self.selected == 0
 
     def draw(self, screen):
         menu_center_x = (self.width - self.menu.get_width()) // 2
@@ -62,19 +59,18 @@ class Menu:
         pygame.display.set_caption('Jolly Jumpers - Main Menu')
         clock = pygame.time.Clock()
 
-        has_selected = False
         run = True
         while run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = False
+                    pygame.quit()
+                    sys.exit()
 
             self.update()
             self.draw(screen)
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_RETURN]:
-                has_selected = True
                 run = False
                 
 
@@ -83,8 +79,5 @@ class Menu:
         
         #close window
         pygame.display.quit()
-
-        if has_selected:
-            return self.get_selection()
-        return None
+        return self.get_selection()
 
