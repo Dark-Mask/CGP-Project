@@ -23,7 +23,7 @@ class World():
         self.width = 1200
         self.height = 700
         self.tile_size = 30
-        self.reduce_tile_size = self.tile_size * 0.2
+        self.reduce_tile_size = self.tile_size * 0.1
         self.increase_tile_size = self.tile_size * 0.8
         self.map_data = map_data
         self.music = music
@@ -100,7 +100,7 @@ class World():
 
     def _add_boss(self, image, col, row):
         image = pygame.transform.scale(image, (self.tile_size + self.increase_tile_size, self.tile_size + self.increase_tile_size))
-        world_boss = boss.Boss(image, col * self.tile_size, row * self.tile_size - (self.increase_tile_size * 0.05), self.bullet_group)
+        world_boss = boss.Boss(image, col * self.tile_size, row * self.tile_size + (self.increase_tile_size * 0.1), self.bullet_group, self)
         self.enemy_group.add(world_boss)
 
     def draw_grid(self, screen):
