@@ -9,8 +9,8 @@ class Cemetery(world.World):
         ground = pygame.image.load('assets/images/objects/dirt.png')
         platform = pygame.image.load('assets/images/objects/grave.png')
         pickup = pygame.image.load('assets/images/objects/mushroom.png')
-        minion = pygame.image.load('assets/images/enemy/snowman.png')
-        boss = pygame.image.load('assets/images/enemy/snowman.png')
+        minion = pygame.image.load('assets/images/enemy/reaper_ghost.png')
+        boss = pygame.image.load('assets/images/enemy/boss_ghoul.png')
         super().__init__(map_data, background, backgroun_music, ground, platform, pickup, minion, boss)
         
     
@@ -36,5 +36,5 @@ class Snow(world.World):
         platform = pygame.image.load('assets/images/objects/snow.png')
         pickup = pygame.image.load('assets/images/objects/mushroom.png')
         minion = pygame.image.load('assets/images/enemy/snowman.png')
-        boss = pygame.image.load('assets/images/enemy/snowman.png')
+        boss = pygame.image.load('assets/images/enemy/snow_boss.png')
         super().__init__(map_data, background, backgroun_music, ground, platform, pickup, minion, boss)
