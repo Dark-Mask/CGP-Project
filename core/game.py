@@ -12,7 +12,9 @@ class Game():
         self.width = 1200
         self.height = 700
         self.tile_size = 30
-
+        self.damage_effect = pygame.mixer.Sound('assets/sounds/damage_effect.mp3')
+        self.pickup_effect = pygame.mixer.Sound('assets/sounds/pickup_effect.mp3')
+        self.level_effect = pygame.mixer.Sound('assets/sounds/next_level_effect.mp3')
         self.maps = {
             "forest" : map.Forest,
             "snow" : map.Snow,
@@ -59,14 +61,20 @@ class Game():
             
                 #enemy collision
                 if pygame.sprite.spritecollide(game_player, game_world.enemy_group, True):
+                    pygame.mixer.stop()
+                    self.damage_effect.play()
                     game_status.damage(70)
 
                 #bullet hit
                 if pygame.sprite.spritecollide(game_player, game_world.bullet_group, True):
+                    pygame.mixer.stop()
+                    self.damage_effect.play()
                     game_status.damage(50)
 
                 #item collect
                 if pygame.sprite.spritecollide(game_player, game_world.collect_group, True):
+                    pygame.mixer.stop()
+                    self.pickup_effect.play()
                     game_status.item_collected()
 
 
@@ -86,7 +94,9 @@ class Game():
                     self.game_manager.set_gameover(True)
                     run = False
                 elif game_status.has_completed():
+                    pygame.mixer.music.stop()
                     pygame.mixer.stop()
+                    self.level_effect.play()
                     pygame.time.wait(1800)
                     run = False
                     
@@ -98,10 +108,12 @@ class Game():
 
             #break level game loop
             if self.game_manager.is_gameover() or self.game_manager.is_shutdown():
+                pygame.mixer.music.stop()
                 pygame.mixer.stop()
                 break
 
         #close window
+        pygame.mixer.music.stop()
         pygame.mixer.stop()
         pygame.display.quit()
         return self.game_manager

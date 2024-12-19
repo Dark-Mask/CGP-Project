@@ -3,7 +3,7 @@ import components.bullet as bullet
 
 #Boss Class
 class Boss(pygame.sprite.Sprite):
-    def __init__(self, image, x, y, bullet_group):
+    def __init__(self, image, x, y, bullet_group, world):
         super().__init__()
         self.shoot_effect = pygame.mixer.Sound('assets/sounds/shooting_effect.mp3')
         self.shoot_effect.set_volume(0.1)
@@ -11,6 +11,9 @@ class Boss(pygame.sprite.Sprite):
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
+
+        self.world = world
+        self.velocity = 0
         self.move_direction = 1
         self.move_counter = 0
         self.shoot_cooldown = 1000  # Time between shots in milliseconds
@@ -37,10 +40,33 @@ class Boss(pygame.sprite.Sprite):
                 self.shoot_effect.play()
 
     def update(self):
-        self.rect.x += self.move_direction
+        #temporary store movement change before applying
+        delta_x = 0
+        delta_y = 0
+
+        #movement
+        delta_x += self.move_direction
         self.move_counter += 1
         if abs(self.move_counter) > 40:
             self.move_direction *= -1
             self.move_counter *= -1
+
+
+        self.velocity += 1 #gravity fall
+        if self.velocity > 10: #peak velocity
+            self.velocity = 10
+        delta_y += self.velocity
+
+        #world collision
+        self.rect.x += delta_x #x-direction collision
+        if pygame.sprite.spritecollide(self, self.world.block_group, False):
+            self.rect.x -= delta_x #don't apply movement on wall collision
+        
+        self.rect.y += delta_y #y-direction collision
+        if pygame.sprite.spritecollide(self, self.world.block_group, False):
+            self.rect.y -= delta_y #don't apply movement on ground collision     
+            self.velocity = 0  
+        
+        #fire bullet
         self.shoot()
 
