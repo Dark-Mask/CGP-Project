@@ -78,7 +78,7 @@ class Game():
                 game_player.draw(screen)
                 game_player.player_border(screen)
                 game_status.draw(screen)
-                # game_world.draw_grid(screen)
+                game_world.draw_grid(screen)
                 pygame.display.update()
 
                 #check condition and update score
