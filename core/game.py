@@ -41,8 +41,8 @@ class Game():
 
     def start(self, fps=60):
         screen = pygame.display.set_mode((self.width, self.height))
-        pygame.display.set_caption('Jolly Jumpers - Game')
         clock = pygame.time.Clock()
+        pygame.display.set_caption('Jolly Jumpers - Game')
         
         for level in self.levels:
             world_map = self.maps[level['world']]
@@ -99,7 +99,7 @@ class Game():
 
                     game_world.draw(screen)
                     game_player.draw(screen)
-                    # game_player.player_border(screen)
+                    game_player.player_border(screen)
                     game_status.draw(screen)
                     # game_world.draw_grid(screen)
                     pygame.display.update()

@@ -5,6 +5,7 @@ class Winner:
         self.width = 800
         self.height = 600
 
+        self.winner_effect = pygame.mixer.Sound('assets/sounds/winner_effect.mp3')
         self.background = pygame.image.load('assets/images/background/cityskyline.png')
         self.background = pygame.transform.scale(self.background, (self.width, self.height))
         self.summary = pygame.image.load('assets/images/winner.png')
@@ -37,8 +38,9 @@ class Winner:
 
     def run(self, fps=60):
         screen = pygame.display.set_mode((self.width, self.height))
-        pygame.display.set_caption('Jolly Jumpers - Winner')
         clock = pygame.time.Clock()
+        pygame.display.set_caption('Jolly Jumpers - Winner')
+        self.winner_effect.play()
 
         run = True
         while run:
@@ -58,6 +60,7 @@ class Winner:
             clock.tick(fps)
         
         #close window
+        pygame.mixer.stop()
         pygame.display.quit()
         return True
 

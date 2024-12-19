@@ -6,6 +6,7 @@ class GameOver:
         self.height = 600
         self.game_manager = game_manager
 
+        self.gameover_effect = pygame.mixer.Sound('assets/sounds/gameover_effect.mp3')
         self.img = pygame.image.load('assets/images/background/cityskyline.png')
         self.img = pygame.transform.scale(self.img, (self.width, self.height))
         self.menu = pygame.image.load('assets/images/gameover.png')
@@ -56,8 +57,9 @@ class GameOver:
 
     def run(self, fps=60):
         screen = pygame.display.set_mode((self.width, self.height))
-        pygame.display.set_caption('Jolly Jumpers - GameOver')
         clock = pygame.time.Clock()
+        pygame.display.set_caption('Jolly Jumpers - GameOver')
+        self.gameover_effect.play()
 
         run = True
         while run:
@@ -78,6 +80,7 @@ class GameOver:
             clock.tick(fps)
         
         #close window
+        pygame.mixer.stop()
         pygame.display.quit()
         return self.get_selection()
 

@@ -20,7 +20,12 @@ class Menu:
 
     def get_selection(self):
         return self.selected == 0
-
+    
+    def play_background_music(self):
+        pygame.mixer.music.load('assets/sounds/intro_background_music.mp3')
+        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.play(-1) #loop
+    
     def draw(self, screen):
         menu_center_x = (self.width - self.menu.get_width()) // 2
         menu_center_y = (self.height - self.menu.get_height()) // 2
@@ -56,8 +61,9 @@ class Menu:
 
     def run(self, fps=60):
         screen = pygame.display.set_mode((self.width, self.height))
-        pygame.display.set_caption('Jolly Jumpers - Main Menu')
         clock = pygame.time.Clock()
+        pygame.display.set_caption('Jolly Jumpers - Main Menu')
+        self.play_background_music()
 
         run = True
         while run:
